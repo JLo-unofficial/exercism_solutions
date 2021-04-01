@@ -12,11 +12,11 @@ func Distance(a, b string) (int, error) {
 	if len(a) != len(b) {
 		return 0, errors.New("Lengths of strings do not match")
 	}
-	distance_count := 0
+	distanceCount := 0
 	for i := 0; i < len(a); i++ {
 		if a[i] != b[i] {
-			distance_count++
+			distanceCount++
 		}
 	}
-	return distance_count, nil
+	return distanceCount, nil
 }
