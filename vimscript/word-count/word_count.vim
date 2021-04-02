@@ -8,7 +8,11 @@
 "   {'olly': 2, 'come': 1, 'in': 1, 'free': 1}
 "
 function! WordCount(phrase) abort
+  let result = {}
 
-  " your solution goes here
+  for word in split(phrase)
+    let result[word] = get(result, word) + 1
+  endfor
 
+  return result
 endfunction
