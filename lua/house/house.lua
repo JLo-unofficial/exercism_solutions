@@ -1,70 +1,61 @@
 local house = {}
 
 
-house.verses = {}
-table.insert(house.verses, {
-  noun = "house that Jack built",
-  verb = "lay in"
-})
-
-table.insert(house.verses, {
-  noun = "malt",
-  verb = "ate"
-})
-
-table.insert(house.verses, {
-  noun = "rat",
-  verb = "killed"
-})
-
-table.insert(house.verses, {
-  noun = "cat",
-  verb = "worried"
-})
-
-table.insert(house.verses, {
-  noun = "dog",
-  verb = "tossed"
-})
-
-table.insert(house.verses, {
-  noun = "cow with the crumpled horn",
-  verb = "milked"
-})
-
-table.insert(house.verses, {
-  noun = "maiden all forlorn",
-  verb = "kissed"
-})
-
-table.insert(house.verses, {
-  noun = "man all tattered and torn",
-  verb = "married"
-})
-
-table.insert(house.verses, {
-  noun = "priest all shaven and shorn",
-  verb = "woke"
-})
-
-table.insert(house.verses, {
-  noun = "rooster that crowed in the morn",
-  verb = "kept"
-})
-
-table.insert(house.verses, {
-  noun = "farmer sowing his corn",
-  verb = "belonged to"
-})
-
-table.insert(house.verses, {
-  noun = "horse and the hound and the horn",
-  verb = ""
-})
+-- Global variable to hold all verses
+VERSES = {
+  {
+    noun = "house that Jack built",
+    verb = "lay in"
+  },
+  {
+    noun = "malt",
+    verb = "ate"
+  },
+  {
+    noun = "rat",
+    verb = "killed"
+  },
+  {
+    noun = "cat",
+    verb = "worried"
+  },
+  {
+    noun = "dog",
+    verb = "tossed"
+  },
+  {
+    noun = "cow with the crumpled horn",
+    verb = "milked"
+  },
+  {
+    noun = "maiden all forlorn",
+    verb = "kissed"
+  },
+  {
+    noun = "man all tattered and torn",
+    verb = "married"
+  },
+  {
+    noun = "priest all shaven and shorn",
+    verb = "woke"
+  },
+  {
+    noun = "rooster that crowed in the morn",
+    verb = "kept"
+  },
+  {
+    noun = "farmer sowing his corn",
+    verb = "belonged to"
+  },
+  {
+    noun = "horse and the hound and the horn",
+    verb = ""
+  }
+}
 
 
 -- Converts current verse as line
-house.create_verse = function(verse)
+local create_verse = function(verse)
   return table.concat({
     "that",
     verse.verb,
@@ -76,21 +67,21 @@ end
 
 -- Returns specified verse
 house.verse = function(which)
-  local verse = {"This is the "..house.verses[which].noun}
+  local verse = {"This is the "..VERSES[which].noun}
 
   for i=which-1, 1, -1 do
-    table.insert(verse, house.create_verse(house.verses[i]))
+    table.insert(verse, create_verse(VERSES[i]))
   end
 
   return table.concat(verse, "\n").."."
 end
 
 
--- Returns the enitire contents of house.verses
+-- Returns the enitire contents of VERSES
 house.recite = function()
   local song = {}
 
-  for i=1,#house.verses do
+  for i=1,#VERSES do
     table.insert(song, house.verse(i))
   end
   return table.concat(song, "\n")
