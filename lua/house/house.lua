@@ -2,7 +2,7 @@ local house = {}
 
 
 -- Global variable to hold all verses
-VERSES = {
+local verses = {
   {
     noun = "house that Jack built",
     verb = "lay in"
@@ -67,10 +67,10 @@ end
 
 -- Returns specified verse
 house.verse = function(which)
-  local verse = {"This is the "..VERSES[which].noun}
+  local verse = {"This is the "..verses[which].noun}
 
   for i=which-1, 1, -1 do
-    table.insert(verse, create_verse(VERSES[i]))
+    table.insert(verse, create_verse(verses[i]))
   end
 
   return table.concat(verse, "\n").."."
@@ -81,7 +81,7 @@ end
 house.recite = function()
   local song = {}
 
-  for i=1,#VERSES do
+  for i=1,#verses do
     table.insert(song, house.verse(i))
   end
   return table.concat(song, "\n")
