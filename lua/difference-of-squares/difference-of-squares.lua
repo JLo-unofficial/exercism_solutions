@@ -1,7 +1,6 @@
 -- Returns the square of the summation of integers from 1 to n
 local function square_of_sum(n)
-  local sum = ((n+1)*n)/2
-  return sum*sum
+  return (((n+1)*n)/2)^2
 end
 
 -- Returns the summation of squares from 1^2 to n^2
