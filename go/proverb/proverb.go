@@ -2,18 +2,21 @@ package proverb
 
 import "fmt"
 
-func Proverb(rhyme []string) []string {
-	proverb := []string{}
-	if len(rhyme) < 1 {
-		return proverb
-	}
-	for i := 1; i < len(rhyme); i++ {
-		line := fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i-1], rhyme[i])
-		proverb = append(proverb, line)
+const (
+	line  = "For want of a %s the %s was lost."
+	final = "And all for the want of a %s."
+)
 
+func Proverb(rhyme []string) []string {
+	if len(rhyme) < 1 {
+		return []string{}
 	}
-	finalLine := fmt.Sprintf("And all for the want of a %s.", rhyme[0])
-	proverb = append(proverb, finalLine)
+
+	proverb := make([]string, len(rhyme))
+	for i := 0; i < len(rhyme)-1; i++ {
+		proverb[i] = fmt.Sprintf(line, rhyme[i], rhyme[i+1])
+	}
+	proverb[len(rhyme)-1] = fmt.Sprintf(final, rhyme[0])
 	return proverb
 
 }
