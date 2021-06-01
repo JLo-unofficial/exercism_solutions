@@ -3,24 +3,32 @@ Package isogram is a simple package to determine if a word is an isogram
 */
 package isogram
 
-import (
-	"regexp"
-	"unicode"
-)
+// LetterToIndex converts an alphabetic rune to its index, ignoring case
+func LetterToIndex(letter rune) rune {
+	// Lowercase letters are more common and can return an index earlier
+	if letter >= 'a' && letter <= 'z' {
+		return letter - 'a'
+	}
+	if letter >= 'A' && letter <= 'Z' {
+		return letter - 'A'
+	}
 
-// Handy pattern to match all non-alphanumeric characters
-var nonAlphaNumeric, err = regexp.Compile(`\W`)
+	// If the rune is non-alphabetic, return empty rune
+	return ' '
+}
 
 // IsIsogram accepts any string and returns true if the string is an isogram
-// and false otherwise
+// and false otherwise without using regular expressions
 func IsIsogram(word string) bool {
-	visited := map[rune]int{}
-	for _, letter := range nonAlphaNumeric.ReplaceAllString(word, "") {
-		_, seenBefore := visited[unicode.ToUpper(letter)]
-		if seenBefore {
-			return false
+	visited := map[rune]bool{}
+	for _, letter := range word {
+		if letterIdx := LetterToIndex(letter); letterIdx != ' ' {
+			// Idiomatic way to check for value in map
+			if _, seenBefore := visited[letterIdx]; seenBefore {
+				return false
+			}
+			visited[letterIdx] = true
 		}
-		visited[unicode.ToUpper(letter)] = 1
 	}
 	return true
 }
