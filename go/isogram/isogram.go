@@ -3,6 +3,8 @@ Package isogram is a simple package to determine if a word is an isogram
 */
 package isogram
 
+import "unicode"
+
 // LetterToIndex converts an alphabetic rune to its index, ignoring case
 func LetterToIndex(letter rune) rune {
 	// Lowercase letters are more common and can return an index earlier
@@ -22,12 +24,12 @@ func LetterToIndex(letter rune) rune {
 func IsIsogram(word string) bool {
 	visited := map[rune]bool{}
 	for _, letter := range word {
-		if letterIdx := LetterToIndex(letter); letterIdx != ' ' {
+		if unicode.IsLetter(letter) {
 			// Idiomatic way to check for value in map
-			if _, seenBefore := visited[letterIdx]; seenBefore {
+			if _, seenBefore := visited[unicode.ToLower(letter)]; seenBefore {
 				return false
 			}
-			visited[letterIdx] = true
+			visited[unicode.ToLower(letter)] = true
 		}
 	}
 	return true
