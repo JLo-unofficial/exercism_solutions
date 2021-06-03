@@ -1,5 +1,7 @@
 --- Simple binary search implementation on a sorted table of ints
 -- @module binary-search
+
+
 --- Find the midpoint index given a range of indices
 -- @tparam int start_idx starting index to search
 -- @tparam int end_idx ending index of range
