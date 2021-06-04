@@ -1,14 +1,6 @@
-// Package diffsquares implements a simple library to calculate sum of squares and the square of
+g/ Package diffsquares implements a simple library to calculate sum of squares and the square of
 // summation
 package diffsquares
-
-// The commented code below produced a worse benchmark than simply multiplying
-// the local summation value by itself
-// import "math"
-/* func SquareOfSum(n int) int {
-	summation := float64(n * (n + 1) / 2)
-	return int(math.Pow(summation, 2))
-} */
 
 // SquareOfSums accepts an int n and returns the squared value of the summation
 // from 1 to n
