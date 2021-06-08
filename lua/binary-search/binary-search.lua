@@ -1,7 +1,5 @@
 --- Simple binary search implementation on a sorted table of ints
 -- @module binary-search
-
-
 --- Find the midpoint index given a range of indices
 -- @tparam int start_idx starting index to search
 -- @tparam int end_idx ending index of range
@@ -15,21 +13,6 @@ local find_midpoint = function(start_idx, end_idx)
     return ((mid + 1) / 2) + start_idx
   end
 end
-
---- Range metatable to hold indices when searching for target value
--- @field start Starting index for range
--- @field end Ending index for range
--- @field calls A count which increments whenever mid is accessed
--- @field mid A function call to find the midpoint using the start and end values of the table
--- @table range
-local range = setmetatable({ ['start'] = 1, ['end'] = nil, calls = 0 }, {
-  __index = function(self, key)
-    if key == 'mid' then
-      self.calls = self.calls + 1
-      return find_midpoint(self['start'], self['end'])
-    end
-  end,
-})
 
 --- Binary search funcion
 -- @tparam table array sorted list of integers
@@ -58,24 +41,19 @@ return function(array, target)
     return #array
   end
 
-  -- Begin searching through array for target
-  range['end'] = #array
-  local max_iterations = range['mid']
-  -- Set an upper bound to iterations equal to initial calculated midpoint
-  while range.calls <= max_iterations do
-    local mid_idx = range['mid']
-    local target_val = array[mid_idx]
-
-    if target == target_val then
-      return mid_idx
-    elseif target > target_val then
-      range['start'] = mid_idx
-    elseif target < target_val then
-      range['end'] = mid_idx
+  -- Create range table with ranges and midpoint
+  local range = { 1, find_midpoint(1, #array), #array }
+  while range[3] - range[1] > 0 do
+    if target == array[range[1]] then
+      return range[1]
+    elseif target > array[range[1]] then
+      range[1] = range[2]
+      range[2] = find_midpoint(range[1], range[3])
+    elseif target < array[range[1]] then
+      range[3] = range[2]
+      range[2] = find_midpoint(range[1], range[3])
     end
   end
-
-  -- Target not found in array
   return -1
 
 end

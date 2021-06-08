@@ -26,8 +26,8 @@ var testCases = []struct {
 	},
 	{
 		"a simple valid SIN that becomes invalid if reversed",
-		"95",
-		false,
+		"59",
+		true,
 	},
 	{
 		"a valid Canadian SIN",
