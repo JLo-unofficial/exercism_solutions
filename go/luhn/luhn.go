@@ -1,6 +1,4 @@
-/*
-* Package luhn is a simple implementation of the Luhn algorithm
- */
+// Package luhn is a simple implementation of the Luhn algorithm
 package luhn
 
 import (
@@ -9,7 +7,7 @@ import (
 )
 
 // luhn_map provides a quick lookup for every other digit
-var luhn_map = map[int]int{
+var luhnMap = map[int]int{
 	0: 0,
 	1: 2,
 	2: 4,
@@ -40,18 +38,18 @@ func Strip(candidate string) ([]int, error) {
 
 // Valid accepts a candidate string and determines whether the string is valid
 func Valid(candidate string) bool {
-	formatted_numbers, err := Strip(candidate)
+	formattedNumbers, err := Strip(candidate)
 	if err != nil {
 		return false
 	}
 
-	double_value := true
+	doubleValue := true
 	sum := 0
-	for i := len(formatted_numbers) - 1; i >= 0; i-- {
-		double_value = double_value == false // cycles between true and false
-		digit := formatted_numbers[i]
-		if double_value {
-			sum += luhn_map[digit]
+	for i := len(formattedNumbers) - 1; i >= 0; i-- {
+		doubleValue = doubleValue == false // cycles between true and false
+		digit := formattedNumbers[i]
+		if doubleValue {
+			sum += luhnMap[digit]
 		} else {
 			sum += digit
 		}
