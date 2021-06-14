@@ -19,27 +19,6 @@ end
 -- @tparam int target Value to find in passed in array
 -- @treturn int Index at which target was found in array; returns -1 if target not in array
 return function(array, target)
-  local arr_len = #array
-
-  -- Return if array if empty
-  if arr_len < 1 then
-    return -1
-  end
-
-  -- Check extremeties to see if the target is in the array
-  -- If the first element is larget than the target, the element does not exist in the array
-  if array[1] > target then
-    return -1
-  elseif array[1] == target then
-    return 1
-  end
-
-  -- If the last element is smaller than the target, the element does not exist in the array
-  if array[#array] < target then
-    return -1
-  elseif array[#array] == target then
-    return #array
-  end
 
   -- Create range table with ranges and midpoint
   local range = { 1, find_midpoint(1, #array), #array }

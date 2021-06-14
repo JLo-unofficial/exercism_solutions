@@ -1,59 +1,44 @@
 // Package luhn is a simple implementation of the Luhn algorithm
 package luhn
 
-import (
-	"errors"
-	"unicode"
-)
+import "unicode"
 
-// luhn_map provides a quick lookup for every other digit
-var luhnMap = map[int]int{
-	0: 0,
-	1: 2,
-	2: 4,
-	3: 6,
-	4: 8,
-	5: 1,
-	6: 3,
-	7: 5,
-	8: 7,
-	9: 9,
-}
-
-// Strip accepts a candidate and returns an int array if the candidate is properly formatted
-func Strip(candidate string) ([]int, error) {
-	result := make([]int, 0, len(candidate))
-	for _, digit := range candidate {
-		if unicode.IsDigit(digit) {
-			result = append(result, int(digit-'0'))
-		} else if !unicode.IsSpace(digit) {
-			return make([]int, 0, 0), errors.New("Number contains invalid characters")
-		}
-	}
-	if len(result) < 2 {
-		return nil, errors.New("Single digit numbers are invalid")
-	}
-	return result, nil
+// luhnMap provides a quick lookup for every other digit
+var luhnMap = map[rune]int{
+	'0': 0,
+	'1': 2,
+	'2': 4,
+	'3': 6,
+	'4': 8,
+	'5': 1,
+	'6': 3,
+	'7': 5,
+	'8': 7,
+	'9': 9,
 }
 
 // Valid accepts a candidate string and determines whether the string is valid
 func Valid(candidate string) bool {
-	formattedNumbers, err := Strip(candidate)
-	if err != nil {
-		return false
-	}
 
 	doubleValue := true
+	digitCount := 0
 	sum := 0
-	for i := len(formattedNumbers) - 1; i >= 0; i-- {
-		doubleValue = doubleValue == false // cycles between true and false
-		digit := formattedNumbers[i]
-		if doubleValue {
-			sum += luhnMap[digit]
-		} else {
-			sum += digit
+	// Iterate backwards over candidate string
+	for i := len(candidate) - 1; i >= 0; i-- {
+		digit := rune(candidate[i])
+		if unicode.IsDigit(digit) {
+			digitCount += 1
+			doubleValue = !doubleValue // cycles between true and false
+			if doubleValue {
+				sum += luhnMap[digit]
+			} else {
+				sum += int(digit - '0')
+			}
+		} else if !unicode.IsSpace(digit) {
+			// String is invalid
+			return false
 		}
 	}
 
-	return sum%10 == 0
+	return digitCount > 1 && sum%10 == 0
 }
