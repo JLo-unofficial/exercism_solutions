@@ -1,5 +1,9 @@
 package encode
 
-func RunLengthEncode(data string) string {
-	return data
+func RunLengthEncode(uncompressed string) string {
+	return uncompressed
+}
+
+func RunLengthDecode(compressed string) string {
+	return compressed
 }
