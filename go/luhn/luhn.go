@@ -26,17 +26,22 @@ func Valid(candidate string) bool {
 	// Iterate backwards over candidate string
 	for i := len(candidate) - 1; i >= 0; i-- {
 		digit := rune(candidate[i])
-		if unicode.IsDigit(digit) {
-			digitCount += 1
-			doubleValue = !doubleValue // cycles between true and false
-			if doubleValue {
-				sum += luhnMap[digit]
-			} else {
-				sum += int(digit - '0')
+
+		// check edge cases early
+		if !unicode.IsDigit(digit) {
+			if !unicode.IsSpace(digit) {
+				// candidate string is invalid
+				return false
 			}
-		} else if !unicode.IsSpace(digit) {
-			// String is invalid
-			return false
+			continue
+		}
+
+		digitCount += 1
+		doubleValue = !doubleValue // cycles between true and false
+		if doubleValue {
+			sum += luhnMap[digit]
+		} else {
+			sum += int(digit - '0')
 		}
 	}
 
