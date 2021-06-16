@@ -32,8 +32,8 @@ func Valid(candidate string) bool {
 			// candidate is invalid if it contains a non-digit rune
 			return false
 		}
-
-		if doubleValue = !doubleValue; doubleValue { // cycles between true and false
+		// cycles between true and false
+		if doubleValue = !doubleValue; doubleValue {
 			char = luhnMap[char]
 		}
 
