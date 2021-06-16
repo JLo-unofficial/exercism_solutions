@@ -7,17 +7,12 @@ import (
 )
 
 // luhnMap provides a quick lookup for every other digit
-var luhnMap = map[rune]rune{
-	'0': '0',
-	'1': '2',
-	'2': '4',
-	'3': '6',
-	'4': '8',
-	'5': '1',
-	'6': '3',
-	'7': '5',
-	'8': '7',
-	'9': '9',
+func LuhnOperation(digit int) int {
+	digit = digit * 2
+	if digit > 9 {
+		digit -= 9
+	}
+	return digit
 }
 
 // Valid accepts a candidate string and determines whether the string is valid
@@ -32,12 +27,13 @@ func Valid(candidate string) bool {
 			// candidate is invalid if it contains a non-digit rune
 			return false
 		}
+		digit := int(char - '0')
 		// cycles between true and false
 		if doubleValue = !doubleValue; doubleValue {
-			char = luhnMap[char]
+			digit = LuhnOperation(digit)
 		}
 
-		sum += int(char - '0')
+		sum += digit
 	}
 
 	return len(candidate) > 1 && sum%10 == 0
