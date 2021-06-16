@@ -23,19 +23,16 @@ var luhnMap = map[rune]rune{
 // Valid accepts a candidate string and determines whether the string is valid
 func Valid(candidate string) bool {
 
-	doubleValue := true
-	digitCount := 0
+	candidate = strings.ReplaceAll(candidate, " ", "")
+	doubleValue := len(candidate)%2 == 1
 	sum := 0
 	// Iterate backwards over candidate string stripped of spaces
-	candidate = strings.ReplaceAll(candidate, " ", "")
-	for i := len(candidate) - 1; i >= 0; i-- {
-		char := rune(candidate[i])
-		// candidate is invalid if it contains a non-digit rune
+	for _, char := range candidate {
 		if !unicode.IsDigit(char) {
+			// candidate is invalid if it contains a non-digit rune
 			return false
 		}
 
-		digitCount++
 		if doubleValue = !doubleValue; doubleValue { // cycles between true and false
 			char = luhnMap[char]
 		}
@@ -43,5 +40,5 @@ func Valid(candidate string) bool {
 		sum += int(char - '0')
 	}
 
-	return digitCount > 1 && sum%10 == 0
+	return len(candidate) > 1 && sum%10 == 0
 }
