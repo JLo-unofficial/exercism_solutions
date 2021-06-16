@@ -6,8 +6,9 @@ import (
 	"unicode"
 )
 
-// luhnMap provides a quick lookup for every other digit
-func LuhnOperation(digit int) int {
+// Double accepts an integer and applies the Luhn transformational
+// step
+func Double(digit int) int {
 	digit = digit * 2
 	if digit > 9 {
 		digit -= 9
@@ -23,14 +24,14 @@ func Valid(candidate string) bool {
 	sum := 0
 	// Iterate backwards over candidate string stripped of spaces
 	for _, char := range candidate {
+		// candidate is invalid if it contains a non-digit rune
 		if !unicode.IsDigit(char) {
-			// candidate is invalid if it contains a non-digit rune
 			return false
 		}
 		digit := int(char - '0')
 		// cycles between true and false
 		if doubleValue = !doubleValue; doubleValue {
-			digit = LuhnOperation(digit)
+			digit = Double(digit)
 		}
 
 		sum += digit
