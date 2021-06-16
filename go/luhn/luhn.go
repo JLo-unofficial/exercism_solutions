@@ -37,7 +37,7 @@ func Valid(candidate string) bool {
 			continue
 		}
 
-		digitCount += 1
+		digitCount ++
 		doubleValue = !doubleValue // cycles between true and false
 		if doubleValue {
 			sum += luhnMap[char]
