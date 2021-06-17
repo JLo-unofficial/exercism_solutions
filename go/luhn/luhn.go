@@ -29,8 +29,10 @@ func Valid(candidate string) bool {
 			return false
 		}
 		digit := int(char - '0')
+
 		// cycles between true and false
-		if doubleValue = !doubleValue; doubleValue {
+		doubleValue = !doubleValue
+		if doubleValue {
 			digit = Double(digit)
 		}
 
