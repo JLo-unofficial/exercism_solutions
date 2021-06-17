@@ -1,8 +1,2 @@
-//
-// This is only a SKELETON file for the 'Gigasecond' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
-export const gigasecond = () => {
-  throw new Error('Remove this statement and implement this function');
-};
+// return a new date created by adding 10^12 miliseconds to Epoch time
+export const gigasecond = (inputDate) => new Date(inputDate.getTime() + 10 ** 12);
