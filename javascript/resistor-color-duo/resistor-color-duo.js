@@ -11,4 +11,5 @@ const colorValues = {
     'white': 9,
 }
 
-export const decodedValue = (colors) => colorValues[colors[0]] * 10 + colorValues[colors[1]];
+// use destructuring to make it clearer that only two colors are required
+export const decodedValue = ([firstColor, secondColor]) => colorValues[firstColor] * 10 + colorValues[secondColor];
