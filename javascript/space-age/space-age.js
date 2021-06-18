@@ -7,7 +7,6 @@ const orbitalPeriod = {
     'saturn': 29.447498,
     'uranus': 84.016846,
     'neptune': 164.79132,
-
 }
 
 const SECONDS_IN_MINUTE = 60.0;
@@ -18,6 +17,6 @@ const SECONDS_IN_YEAR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAY
 
 export const age = (planet, ageInSeconds) => {
     const preciseAge = (ageInSeconds / orbitalPeriod[planet]) / SECONDS_IN_YEAR;
-    // take advantage of Math.round and identity operation (x*100/100) to return result with two sigfigs
+    // reduce preciseAge to 2 decimal places
     return Math.round(preciseAge * 100) / 100;
 }
