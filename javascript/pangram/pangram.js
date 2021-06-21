@@ -1,1 +1,4 @@
-export const isPangram = (candidate) => (new Set(candidate.toLowerCase().match(/[a-z]/))).size == 26;
+export const isPangram = (candidate) => {
+    const uniqueLetters = new Set(candidate.toUpperCase().match(/[A-Z]/g));
+    return uniqueLetters.size === 26;
+}
