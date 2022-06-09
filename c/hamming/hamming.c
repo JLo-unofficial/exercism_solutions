@@ -2,11 +2,11 @@
 #include <string.h>
 
 /**
- * @brief Compute 
+ * @brief Compute the hamming difference between two strings of equal length
  *
- * @param lhs [TODO:parameter]
- * @param rhs [TODO:parameter]
- * @return [TODO:return]
+ * @param lhs Left sequence
+ * @param rhs Right sequence
+ * @return Number of positions that differ
  */
 int compute(const char *lhs, const char *rhs) {
   int lhs_length = strlen(lhs);
