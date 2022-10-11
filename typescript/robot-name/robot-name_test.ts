@@ -48,16 +48,16 @@ describe("Robot", () => {
     assertMatch(robot.name, NAME_RE);
   });
 
-  it.ignore("name is the same each time", () => {
+  it("name is the same each time", () => {
     assertEquals(robot.name, robot.name);
   });
 
-  it.ignore("different robots have different names", () => {
+  it("different robots have different names", () => {
     const differentRobot = new Robot();
     assertNotEquals(differentRobot.name, robot.name);
   });
 
-  it.ignore("is able to reset the name", () => {
+  it("is able to reset the name", () => {
     const originalName = robot.name;
 
     robot.resetName();
@@ -67,7 +67,7 @@ describe("Robot", () => {
     assertNotEquals(originalName, newName);
   });
 
-  it.ignore("should set a unique name after reset", () => {
+  it("should set a unique name after reset", () => {
     const NUMBER_OF_ROBOTS = 10000;
     const usedNames = new Set();
 
@@ -80,7 +80,7 @@ describe("Robot", () => {
     assertEquals(usedNames.size, NUMBER_OF_ROBOTS + 1);
   });
 
-  it.ignore("new names should not be sequential", () => {
+  it("new names should not be sequential", () => {
     const name1 = robot.name;
     const name2 = new Robot().name;
     const name3 = new Robot().name;
@@ -89,7 +89,7 @@ describe("Robot", () => {
     assertEquals(areSequential(name2, name3), false);
   });
 
-  it.ignore("names from reset should not be sequential", () => {
+  it("names from reset should not be sequential", () => {
     const name1 = robot.name;
     robot.resetName();
     const name2 = robot.name;
@@ -100,7 +100,7 @@ describe("Robot", () => {
     assertEquals(areSequential(name3, name3), true);
   });
 
-  it.ignore("uses all letters", () => {
+  it("uses all letters", () => {
     let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     for (let i = 0; i < 1000 - 1; i += 1) {
@@ -116,7 +116,7 @@ describe("Robot", () => {
     assertEquals(letters, "");
   });
 
-  it.ignore("uses all numbers", () => {
+  it("uses all numbers", () => {
     let numbers = "0123456789";
 
     for (let i = 0; i < 1000 - 1; i += 1) {
