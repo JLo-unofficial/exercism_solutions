@@ -1,24 +1,24 @@
-import { sample } from "https://deno.land/std@0.159.0/collections/sample.ts";
-
-const numbers = "0123456789".split("");
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const usedNames = new Map<string, boolean>();
+
+const randomDigit = () => `${Math.round((Math.random() * 10)) % 10}`;
+const randomLetter = () => letters.at((Math.random() * 100) % 26);
 
 const generateName = (): string => {
   let name = [
-    sample(letters),
-    sample(letters),
-    sample(numbers),
-    sample(numbers),
-    sample(numbers),
+    randomLetter(),
+    randomLetter(),
+    randomDigit(),
+    randomDigit(),
+    randomDigit(),
   ].join("");
   while (usedNames.get(name) !== undefined) {
     name = [
-      sample(letters),
-      sample(letters),
-      sample(numbers),
-      sample(numbers),
-      sample(numbers),
+      randomLetter(),
+      randomLetter(),
+      randomDigit(),
+      randomDigit(),
+      randomDigit(),
     ].join("");
   }
   usedNames.set(name, true);
