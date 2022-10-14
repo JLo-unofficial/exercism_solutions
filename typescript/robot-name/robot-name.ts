@@ -2,7 +2,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const usedNames = new Map<string, boolean>();
 
 const randomDigit = () => `${Math.round((Math.random() * 10)) % 10}`;
-const randomLetter = () => letters.at((Math.random() * 100) % 26);
+const randomLetter = () => letters.charAt((Math.random() * 100) % 26);
 
 const generateName = (): string => {
   let name = [
