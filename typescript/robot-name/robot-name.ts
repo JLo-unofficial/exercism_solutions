@@ -1,52 +1,49 @@
-const digits = "0123456789";
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-class NameDatabase {
-  _names: string[] = [];
-  nameIndices: number[] = Array.from(Array(26 * 26 * 10 * 10 * 10).keys());
+const uniqueNameCount = 26 * 26 * 10 * 10 * 10;
+
+export const getName = (index: number) => {
+  let name = String(index % 1000).padStart(3, "0");
+  index = Math.floor((index - (index % 1000)) / 1000);
+  for (let i = 0; i < 2; i++) {
+    name = letters[index % 26] + name;
+    index = Math.floor((index - (index % 26)) / 26);
+  }
+  return name;
+};
+
+class NameGenerator {
+  unusedNames: Array<number>;
 
   constructor() {
-    for (let l0 = 0; l0 < letters.length; l0++) {
-      for (let l1 = 0; l1 < letters.length; l1++) {
-        for (let d0 = 0; d0 < digits.length; d0++) {
-          for (let d1 = 0; d1 < digits.length; d1++) {
-            for (let d2 = 0; d2 < digits.length; d2++) {
-              this._names.push(
-                letters[l0] + letters[l1] + digits[d0] + digits[d1] +
-                  digits[d2],
-              );
-            }
-          }
-        }
-      }
-    }
-    this.resetNames();
+    this.unusedNames = Array.from(
+      { length: uniqueNameCount },
+      (_, index) => index,
+    );
   }
 
-  public generateName(): string {
-    const next = this.nameIndices.shift();
-    if (typeof next === "undefined") {
-      throw "All names have been exhausted!";
-    }
-    return this._names[next];
+  public nextName(): string {
+    const nextUnusedIndex = Math.floor(Math.random() * this.unusedNames.length);
+    const nextIndex = this.unusedNames.splice(nextUnusedIndex, 1)[0];
+    return this.indexToName(nextIndex);
   }
 
-  public resetNames() {
-    this.nameIndices = Array.from(this._names.keys());
-    for (let i = this.nameIndices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = this.nameIndices[i];
-      this.nameIndices[i] = this.nameIndices[j];
-      this.nameIndices[j] = temp;
+  private indexToName(index: number): string {
+    let name = String(index % 1000).padStart(3, "0");
+    index = Math.floor((index - (index % 1000)) / 1000);
+    for (let i = 0; i < 2; i++) {
+      name = letters[index % 26] + name;
+      index = Math.floor((index - (index % 26)) / 26);
     }
+    return name;
   }
 }
 
 export class Robot {
   _name: string;
-  names = new NameDatabase();
+  names = new NameGenerator();
   constructor() {
-    this._name = this.names.generateName();
+    this._name = this.names.nextName();
   }
 
   public get name(): string {
@@ -54,7 +51,7 @@ export class Robot {
   }
 
   public resetName(): void {
-    this._name = this.names.generateName();
+    this._name = this.names.nextName();
   }
 
   public static releaseNames(): void {
