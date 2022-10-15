@@ -1,21 +1,9 @@
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-const uniqueNameCount = 26 * 26 * 10 * 10 * 10;
-
-export const getName = (index: number) => {
-  let name = String(index % 1000).padStart(3, "0");
-  index = Math.floor((index - (index % 1000)) / 1000);
-  for (let i = 0; i < 2; i++) {
-    name = letters[index % 26] + name;
-    index = Math.floor((index - (index % 26)) / 26);
-  }
-  return name;
-};
-
 class NameGenerator {
   unusedNames: Array<number>;
+  letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   constructor() {
+    const uniqueNameCount = 26 * 26 * 10 * 10 * 10;
     this.unusedNames = Array.from(
       { length: uniqueNameCount },
       (_, index) => index,
@@ -32,7 +20,7 @@ class NameGenerator {
     let name = String(index % 1000).padStart(3, "0");
     index = Math.floor((index - (index % 1000)) / 1000);
     for (let i = 0; i < 2; i++) {
-      name = letters[index % 26] + name;
+      name = this.letters[index % 26] + name;
       index = Math.floor((index - (index % 26)) / 26);
     }
     return name;
@@ -40,10 +28,10 @@ class NameGenerator {
 }
 
 export class Robot {
+  static names = new NameGenerator();
   _name: string;
-  names = new NameGenerator();
   constructor() {
-    this._name = this.names.nextName();
+    this._name = Robot.names.nextName();
   }
 
   public get name(): string {
@@ -51,10 +39,10 @@ export class Robot {
   }
 
   public resetName(): void {
-    this._name = this.names.nextName();
+    this._name = Robot.names.nextName();
   }
 
   public static releaseNames(): void {
-    // throw new Error("Implement Robot.releaseNames");
+    Robot.names = new NameGenerator();
   }
 }

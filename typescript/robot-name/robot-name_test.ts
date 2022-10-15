@@ -9,7 +9,7 @@ import {
   describe,
   it,
 } from "https://deno.land/std@0.159.0/testing/bdd.ts";
-import { getName, Robot } from "./robot-name.ts";
+import { Robot } from "./robot-name.ts";
 
 const areSequential = (name1: string, name2: string): boolean => {
   const alpha1 = name1.substring(0, 2);
@@ -32,33 +32,6 @@ const TOTAL_NUMBER_OF_NAMES = 26 * // A-Z
   10 * // 0-9
   10 * // 0-9
   10; // 0-9
-
-describe("NameGenerator", () => {
-  it("zero generates the first name", () => {
-    assertEquals(getName(0), "AA000");
-  });
-
-  it("iterate over all generated names", () => {
-    const digits = "0123456789";
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let currentName = "";
-    let currentIndex = 0;
-    for (let l0 = 0; l0 < letters.length; l0++) {
-      for (let l1 = 0; l1 < letters.length; l1++) {
-        for (let d0 = 0; d0 < digits.length; d0++) {
-          for (let d1 = 0; d1 < digits.length; d1++) {
-            for (let d2 = 0; d2 < digits.length; d2++) {
-              currentName = letters[l0] + letters[l1] + digits[d0] +
-                digits[d1] + digits[d2];
-              assertEquals(currentName, getName(currentIndex));
-              currentIndex++;
-            }
-          }
-        }
-      }
-    }
-  });
-});
 
 describe("Robot", () => {
   let robot: Robot;
