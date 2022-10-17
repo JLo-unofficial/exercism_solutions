@@ -16,7 +16,13 @@ class NameGenerator {
     return this.indexToName(nextNameIndex);
   }
 
+  /**
+   * Generate robot name from given index position
+   * @param {number} index
+   * @returns {string}
+   */
   private indexToName(index: number): string {
+    // Last three characters in name match last three digits in index
     let name = String(index % 1000).padStart(3, "0");
     index = Math.floor((index - (index % 1000)) / 1000);
     for (let i = 0; i < 2; i++) {
@@ -29,7 +35,8 @@ class NameGenerator {
 
 export class Robot {
   static names = new NameGenerator();
-  _name: string;
+  private _name: string;
+
   constructor() {
     this._name = Robot.names.nextName();
   }
