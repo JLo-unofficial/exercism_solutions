@@ -11,15 +11,15 @@ describe("VariableLengthQuantity", () => {
       assertEquals(encode([0]), [0]);
     });
 
-    it.ignore("arbitrary single byte", () => {
+    it("arbitrary single byte", () => {
       assertEquals(encode([0x40]), [0x40]);
     });
 
-    it.ignore("largest single byte", () => {
+    it("largest single byte", () => {
       assertEquals(encode([0x7f]), [0x7f]);
     });
 
-    it.ignore("smallest double byte", () => {
+    it("smallest double byte", () => {
       assertEquals(encode([0x80]), [0x81, 0]);
     });
 
