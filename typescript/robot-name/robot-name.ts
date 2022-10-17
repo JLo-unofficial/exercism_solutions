@@ -1,15 +1,21 @@
+/** A robot generator keeping track of unused robot names */
 class NameGenerator {
   static letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  static uniqueNameCount = 26 * 26 * 10 * 10 * 10;
   private unusedNames: Array<number>;
 
+  /** Resets unusedNames array to array from 0 to uniqueNameCount - 1*/
   constructor() {
-    const uniqueNameCount = 26 * 26 * 10 * 10 * 10;
     this.unusedNames = Array.from(
-      { length: uniqueNameCount },
+      { length: NameGenerator.uniqueNameCount },
       (_, index) => index,
     );
   }
 
+  /**
+   * Randomly select value from unusedNames and remove selected element from array
+   * @returns {string} Next unused robot name
+   */
   public nextName(): string {
     const nextUnusedIndex = Math.floor(Math.random() * this.unusedNames.length);
     const nextNameIndex = this.unusedNames.splice(nextUnusedIndex, 1)[0];
@@ -19,7 +25,7 @@ class NameGenerator {
   /**
    * Generate robot name from given index position
    * @param {number} index
-   * @returns {string}
+   * @returns {string} Robot name translated from index
    */
   private indexToName(index: number): string {
     // Last three characters in name match last three digits in index
@@ -33,6 +39,7 @@ class NameGenerator {
   }
 }
 
+/** A robot name class*/
 export class Robot {
   static names = new NameGenerator();
   private _name: string;
