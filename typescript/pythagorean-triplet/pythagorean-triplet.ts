@@ -7,8 +7,8 @@ type Options = {
 export function triplets({ minFactor, maxFactor, sum }: Options): Triplet[] {
   const result: Array<Triplet> = [];
   maxFactor = maxFactor ?? sum;
-  for (let a = minFactor ?? 1; a < sum; a++) {
-    for (let b = a + 1; b < sum; b++) {
+  for (let a = minFactor ?? 1; a < sum / 3; a++) {
+    for (let b = a + 1; b < sum - (a + b); b++) {
       const c = sum - (a + b);
       if (c < maxFactor && a * a + b * b === c * c) {
         result.push(new Triplet(a, b, c));
