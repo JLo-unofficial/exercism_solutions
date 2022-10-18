@@ -9,7 +9,6 @@ export function isValid(isbn: string): boolean {
           (10 - index) * (char === "X" ? 10 : parseInt(char))
         )
         .reduce(
-          (runningTotal, currentValue) => (currentValue + runningTotal),
-          0,
+          (runningTotal, currentValue) => (currentValue + runningTotal)
         ) % 11 === 0;
 }
