@@ -19,11 +19,11 @@ describe("VariableLengthQuantity", () => {
       assertEquals(encode([0x7f]), [0x7f]);
     });
 
-    it("smallest double byte", () => {
+    it.ignore("smallest double byte", () => {
       assertEquals(encode([0x80]), [0x81, 0]);
     });
 
-    it.ignore("arbitrary double byte", () => {
+    it("arbitrary double byte", () => {
       assertEquals(encode([0x2000]), [0xc0, 0]);
     });
 
