@@ -4,7 +4,7 @@ async function generateImportMap() {
   const latestVersion = "0.160.0";
   const importMap = {
     "imports": {
-      "testing/": `https://deno.land/std@${latestVersion}/testing`,
+      "testing/": `https://deno.land/std@${latestVersion}/testing/`,
     },
   };
   await Deno.writeTextFile(
