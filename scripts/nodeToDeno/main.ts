@@ -42,7 +42,7 @@ async function deleteNodeFiles() {
 async function renameTestFile() {
   const xit = /^(?<indent>\s*)xit\(/;
   const toEqual =
-    /^(?<indent>\s*)expect\((?<actual>.+)\)\.toEqual\((?<expected>.*)\)$/;
+    /^(?<indent>\s*)expect\((?<actual>.+)\)\.(toEqual|toBe)\((?<expected>.*)\)$/;
   const toThrow =
     /^(?<indent>\s*)expect\((?<actual>.+)\)\.toThrow\(new Error\((?<message>.*)\)\)$/;
   const assertTypes: Set<string> = new Set<string>();
