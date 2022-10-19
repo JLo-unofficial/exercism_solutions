@@ -48,6 +48,10 @@ async function renameTestFile() {
     const denoTestFile = jestFile.name.replace(".test", "_test");
     const nodeTestFile = await Deno.readTextFile(jestFile.name);
     const testLines = nodeTestFile.split("\n");
+    testLines[0] = testLines[0].replace(
+      /'(?<localFile>.*)'$/,
+      '"$<localFile>.ts";',
+    );
     testLines.unshift('import { describe, it } from "testing/bdd.ts";');
     for (let i = 0; i < testLines.length; i++) {
       if (xit.test(testLines[i])) {
