@@ -17,8 +17,9 @@ Once you get a test passing, you can enable the next one by changing `xit` to
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit variable-length-quantity.ts` command.
-This command will upload your solution to the Exercism website and print the solution page's URL.
+You can submit your solution using the
+`exercism submit variable-length-quantity.ts` command. This command will upload
+your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
 
@@ -29,16 +30,23 @@ It's possible to submit an incomplete solution which allows you to:
 
 If you'd like help solving the exercise, check the following pages:
 
-- The [TypeScript track's documentation](https://exercism.org/docs/tracks/typescript)
+- The
+  [TypeScript track's documentation](https://exercism.org/docs/tracks/typescript)
 - [Exercism's support channel on gitter](https://gitter.im/exercism/support)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
-Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
+Should those resources not suffice, you could submit your (incomplete) solution
+to request mentoring.
 
-To get help if you're having trouble, you can use one of the following resources:
+To get help if you're having trouble, you can use one of the following
+resources:
 
 - [TypeScript QuickStart](https://www.typescriptlang.org/docs/handbook/release-notes/overview.html)
-- [ECMAScript 2015 Language Specification](https://www.ecma-international.org/wp-content/uploads/ECMA-262_6th_edition_june_2015.pdf) (pdf)
+- [ECMAScript 2015 Language Specification](https://www.ecma-international.org/wp-content/uploads/ECMA-262_6th_edition_june_2015.pdf)
+  (pdf)
 - [Mozilla JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-- [/r/typescript](https://www.reddit.com/r/typescript) is the TypeScript subreddit.
-- [StackOverflow](https://stackoverflow.com/questions/tagged/typescript) can be used to search for your problem and see if it has been answered already. You can also ask and answer questions.
+- [/r/typescript](https://www.reddit.com/r/typescript) is the TypeScript
+  subreddit.
+- [StackOverflow](https://stackoverflow.com/questions/tagged/typescript) can be
+  used to search for your problem and see if it has been answered already. You
+  can also ask and answer questions.
