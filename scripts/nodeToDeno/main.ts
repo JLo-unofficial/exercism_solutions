@@ -43,6 +43,8 @@ async function renameTestFile() {
   const xit = /^(?<indent>\s*)xit\(/;
   const toEqual =
     /^(?<indent>\s*)expect\((?<actual>.+)\)\.toEqual\((?<expected>.*)\)$/;
+  const toThrow =
+    /^(?<indent>\s*)expect\((?<actual>.+)\)\.toThrow\(new Error\((?<message>.*)\)\)$/;
   const assertTypes: Set<string> = new Set<string>();
   for await (const jestFile of expandGlob("*.test.ts")) {
     const denoTestFile = jestFile.name.replace(".test", "_test");
@@ -61,6 +63,12 @@ async function renameTestFile() {
         testLines[i] = testLines[i].replace(
           toEqual,
           "$<indent>assertEquals($<actual>, $<expected>);",
+        );
+      } else if (toThrow.test(testLines[i])) {
+        assertTypes.add("assertThrows");
+        testLines[i] = testLines[i].replace(
+          toThrow,
+          "$<indent>assertThrows($<actual>, $<message>);",
         );
       }
     }
