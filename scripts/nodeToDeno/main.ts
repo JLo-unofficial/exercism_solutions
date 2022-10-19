@@ -1,3 +1,6 @@
+import { expandGlob } from "https://deno.land/std@0.160.0/fs/expand_glob.ts";
+import { move } from "https://deno.land/std@0.160.0/fs/mod.ts";
+
 async function generateImportMap() {
   const latestVersion = "0.160.0";
   const importMap = {
@@ -37,8 +40,15 @@ async function deleteNodeFiles() {
   }
 }
 
+async function renameTestFile() {
+  for await (const testFile of expandGlob("*.test.ts")) {
+    await move(testFile.name, testFile.name.replace(".test", "_test"));
+  }
+}
+
 await Promise.all([
   deleteNodeFiles(),
   generateImportMap(),
   generateDenoConfig(),
+  renameTestFile(),
 ]);
