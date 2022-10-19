@@ -82,9 +82,14 @@ async function renameTestFile() {
   }
 }
 
+if (import.meta.main) {
+
+
 await Promise.all([
   deleteNodeFiles(),
   generateImportMap(),
   generateDenoConfig(),
   renameTestFile(),
 ]);
+
+}
