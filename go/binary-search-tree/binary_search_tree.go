@@ -8,13 +8,34 @@ type BinarySearchTree struct {
 
 // NewBst creates and returns a new BinarySearchTree.
 func NewBst(i int) *BinarySearchTree {
-	panic("Please implement the NewBst function")
+	return &BinarySearchTree{
+		left:  nil,
+		data:  i,
+		right: nil,
+	}
 }
 
 // Insert inserts an int into the BinarySearchTree.
 // Inserts happen based on the rules of a binary search tree
 func (bst *BinarySearchTree) Insert(i int) {
-	panic("Please implement the Insert method")
+	current := bst
+	for {
+		if i <= current.data {
+			if current.left == nil {
+				current.left = NewBst(i)
+				return
+			} else {
+				current = current.left
+			}
+		} else {
+			if current.right == nil {
+				current.right = NewBst(i)
+				return
+			} else {
+				current = current.right
+			}
+		}
+	}
 }
 
 // SortedData returns the ordered contents of BinarySearchTree as an []int.
@@ -22,5 +43,6 @@ func (bst *BinarySearchTree) Insert(i int) {
 // A BinarySearchTree that has the numbers [1,3,7,5] added will return the
 // []int [1,3,5,7].
 func (bst *BinarySearchTree) SortedData() []int {
-	panic("Please implement the SortedData function")
+	list := make([]int, 0)
+	return list
 }
