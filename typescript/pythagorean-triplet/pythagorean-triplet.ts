@@ -4,6 +4,10 @@ type Options = {
   sum: number;
 };
 
+/**
+ * @param optionsblock - Options instance
+ * @returns Array of triplets
+ */
 export function triplets({ minFactor, maxFactor, sum }: Options): Triplet[] {
   const result: Array<Triplet> = [];
   maxFactor = maxFactor ?? sum;
