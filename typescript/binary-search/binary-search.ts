@@ -1,3 +1,11 @@
+/**
+ * Simple binary search algorithm
+ *
+ * @param haystack - A sorted array of numbers to search through
+ * @param needle - The target number to find in the haystack
+ * @returns The haystack index where the needle is found
+ * @throws Throws an error if needle not in haystack
+ */
 export function find(haystack: Array<number>, needle: number): number | never {
   let lowerBounds = 0;
   let upperBounds = haystack.length - 1;
