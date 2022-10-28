@@ -37,21 +37,21 @@ describe("Binary Search", () => {
     assertThrows(() => find(array, 7), "Value not in array");
   });
 
-  it.ignore("a value smaller than the array's smallest value is not found", () => {
+  it("a value smaller than the array's smallest value is not found", () => {
     const array = [1, 3, 4, 6, 8, 9, 11];
     assertThrows(() => find(array, 0), "Value not in array");
   });
 
-  it.ignore("a value larger than the array's largest value is not found", () => {
+  it("a value larger than the array's largest value is not found", () => {
     const array = [1, 3, 4, 6, 8, 9, 11];
     assertThrows(() => find(array, 13), "Value not in array");
   });
 
-  it.ignore("nothing is found in an empty array", () => {
+  it("nothing is found in an empty array", () => {
     assertThrows(() => find([], 1), "Value not in array");
   });
 
-  it.ignore("nothing is found when the left and right bounds cross", () => {
+  it("nothing is found when the left and right bounds cross", () => {
     assertThrows(() => find([1, 2], 0), "Value not in array");
   });
 });
