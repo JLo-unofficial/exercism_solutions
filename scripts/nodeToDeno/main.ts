@@ -1,7 +1,23 @@
-import { expandGlob } from "https://deno.land/std@0.160.0/fs/expand_glob.ts";
+import { expandGlob } from "https://deno.land/std@0.163.0/fs/expand_glob.ts";
+
+interface ModuleMetadata {
+  name: string;
+  description: string;
+  latest_version: string;
+  versions: Array<string>;
+  popularity_score: number;
+  tags: Array<string>;
+  star_count: number;
+}
+
+async function getModuleLatestVersion(module: string): Promise<string> {
+  const response = await fetch(`http://apiland.deno.dev/v2/modules/${module}`);
+  const metadata: ModuleMetadata = await response.json();
+  return metadata.latest_version;
+}
 
 async function generateImportMap() {
-  const latestVersion = "0.160.0";
+  const latestVersion: string = await getModuleLatestVersion("std");
   const importMap = {
     "imports": {
       "testing/": `https://deno.land/std@${latestVersion}/testing/`,
@@ -83,13 +99,10 @@ async function renameTestFile() {
 }
 
 if (import.meta.main) {
-
-
-await Promise.all([
-  deleteNodeFiles(),
-  generateImportMap(),
-  generateDenoConfig(),
-  renameTestFile(),
-]);
-
+  await Promise.all([
+    deleteNodeFiles(),
+    generateImportMap(),
+    generateDenoConfig(),
+    renameTestFile(),
+  ]);
 }
