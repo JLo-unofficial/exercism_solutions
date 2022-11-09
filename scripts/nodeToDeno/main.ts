@@ -56,7 +56,8 @@ async function deleteNodeFiles() {
 }
 
 async function renameTestFile() {
-  const xit = /^(?<indent>\s*)xit\(/;
+  // const xit = /^(?<indent>\s*)xit\(/;
+  const xignore = /^(?<indent>\s*)x(?<ignored>it|describe)\(/;
   const toEqual =
     /^(?<indent>\s*)expect\((?<actual>.+)\)\.(toEqual|toBe)\((?<expected>.*)\)$/;
   const toThrow =
@@ -72,8 +73,11 @@ async function renameTestFile() {
     );
     testLines.unshift('import { describe, it } from "testing/bdd.ts";');
     for (let i = 0; i < testLines.length; i++) {
-      if (xit.test(testLines[i])) {
-        testLines[i] = testLines[i].replace(xit, "$<indent>it.ignore(");
+      if (xignore.test(testLines[i])) {
+        testLines[i] = testLines[i].replace(
+          xignore,
+          "$<indent>$<ignored>.ignore(",
+        );
       } else if (toEqual.test(testLines[i])) {
         assertTypes.add("assertEquals");
         testLines[i] = testLines[i].replace(
@@ -98,6 +102,12 @@ async function renameTestFile() {
   }
 }
 
+async function formatDirectory() {
+  const cmd = ["deno", "fmt"];
+  const p = Deno.run({ cmd });
+  await p.status();
+}
+
 if (import.meta.main) {
   await Promise.all([
     deleteNodeFiles(),
@@ -105,4 +115,5 @@ if (import.meta.main) {
     generateDenoConfig(),
     renameTestFile(),
   ]);
+  await formatDirectory();
 }
