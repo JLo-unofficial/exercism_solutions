@@ -10,14 +10,14 @@ const zCharIdx = "z".charCodeAt(0);
  * @param plainChar - An alphanumeric string of length 1
  * @returns Corresponding ciphertext character
  */
-function plainToCipher(plainChar: string): string {
+const plainToCipher = (plainChar: string): string => {
   if (/\d/.test(plainChar)) {
     return plainChar;
   }
   return String.fromCharCode(
     zCharIdx - (plainChar.toLowerCase().charCodeAt(0) - aCharIdx),
   );
-}
+};
 
 /**
  * Converts an Atbash ciphertext character to its corresponding plaintext character
@@ -25,14 +25,14 @@ function plainToCipher(plainChar: string): string {
  * @param cipherChar - Atbash cipher character
  * @returns Corresponding plaintext character
  */
-function cipherToPlain(cipherChar: string): string {
+const cipherToPlain = (cipherChar: string): string => {
   if (/\d/.test(cipherChar)) {
     return cipherChar;
   }
   return String.fromCharCode(
     aCharIdx + (zCharIdx - cipherChar.charCodeAt(0)),
   );
-}
+};
 
 /**
  * Higher order function returning a function to group characters
@@ -41,8 +41,8 @@ function cipherToPlain(cipherChar: string): string {
  * @param groupLength - Desired length of Atbash ciphertext groups
  * @returns Function
  */
-function createGroupsOfLength(groupLength: number) {
-  return function (words: string[], letter: string): string[] {
+const createGroupsOfLength =
+  (groupLength: number) => (words: string[], letter: string): string[] => {
     const lastIdx = words.length - 1;
     const lastWord = words[lastIdx];
     if (lastWord.length < groupLength) {
@@ -52,7 +52,6 @@ function createGroupsOfLength(groupLength: number) {
     }
     return words;
   };
-}
 
 /**
  * Simple regex arrow function to check if a character is a digit or a letter (case-insensitive)
