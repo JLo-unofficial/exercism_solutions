@@ -1,7 +1,7 @@
 const firstLetterIdx = "a".charCodeAt(0);
 const lastLetterIdx = "z".charCodeAt(0);
 
-function converter(letter: string): string {
+function plainToCipher(letter: string): string {
   return String.fromCharCode(
     lastLetterIdx - (letter.toLowerCase().charCodeAt(0) - firstLetterIdx),
   );
@@ -10,7 +10,7 @@ function converter(letter: string): string {
 export function encode(plainText: string): string {
   return [...plainText].filter((char: string) => {
     return char !== " ";
-  }).map(converter).join("");
+  }).map(plainToCipher).join("");
 }
 
 export function decode(cipherText: string): string {
