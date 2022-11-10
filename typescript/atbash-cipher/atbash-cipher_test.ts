@@ -9,37 +9,37 @@ describe("AtbashCipher", () => {
       assertEquals(cipherText, "bvh");
     });
 
-    it.ignore("encode no", () => {
+    it("encode no", () => {
       const cipherText = encode("no");
       assertEquals(cipherText, "ml");
     });
 
-    it.ignore("encode OMG", () => {
+    it("encode OMG", () => {
       const cipherText = encode("OMG");
       assertEquals(cipherText, "lnt");
     });
 
-    it.ignore("encode spaces", () => {
+    it("encode spaces", () => {
       const cipherText = encode("O M G");
       assertEquals(cipherText, "lnt");
     });
 
-    it.ignore("encode mindblowingly", () => {
+    it("encode mindblowingly", () => {
       const cipherText = encode("mindblowingly");
       assertEquals(cipherText, "nrmwy oldrm tob");
     });
 
-    it.ignore("encode numbers", () => {
+    it("encode numbers", () => {
       const cipherText = encode("Testing,1 2 3, testing.");
       assertEquals(cipherText, "gvhgr mt123 gvhgr mt");
     });
 
-    it.ignore("encode deep thought", () => {
+    it("encode deep thought", () => {
       const cipherText = encode("Truth is fiction.");
       assertEquals(cipherText, "gifgs rhurx grlm");
     });
 
-    it.ignore("encode all the letters", () => {
+    it("encode all the letters", () => {
       const cipherText = encode("thequickbrownfoxjumpsoverthelazydog");
       assertEquals(cipherText, "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt");
     });
