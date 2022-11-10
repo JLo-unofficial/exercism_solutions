@@ -1,62 +1,16 @@
-const cipher: Map<string, string> = new Map<string, string>([
-  ["A", "z"],
-  ["B", "y"],
-  ["C", "x"],
-  ["D", "w"],
-  ["E", "v"],
-  ["F", "u"],
-  ["G", "t"],
-  ["H", "s"],
-  ["I", "r"],
-  ["J", "q"],
-  ["K", "p"],
-  ["L", "o"],
-  ["M", "n"],
-  ["N", "m"],
-  ["O", "l"],
-  ["P", "k"],
-  ["Q", "j"],
-  ["R", "i"],
-  ["S", "h"],
-  ["T", "g"],
-  ["U", "f"],
-  ["V", "e"],
-  ["W", "d"],
-  ["X", "c"],
-  ["Y", "b"],
-  ["Z", "a"],
-  ["a", "z"],
-  ["b", "y"],
-  ["c", "x"],
-  ["d", "w"],
-  ["e", "v"],
-  ["f", "u"],
-  ["g", "t"],
-  ["h", "s"],
-  ["i", "r"],
-  ["j", "q"],
-  ["k", "p"],
-  ["l", "o"],
-  ["m", "n"],
-  ["n", "m"],
-  ["o", "l"],
-  ["p", "k"],
-  ["q", "j"],
-  ["r", "i"],
-  ["s", "h"],
-  ["t", "g"],
-  ["u", "f"],
-  ["v", "e"],
-  ["w", "d"],
-  ["x", "c"],
-  ["y", "b"],
-  ["z", "a"],
-]);
+const firstLetterIdx = "a".charCodeAt(0);
+const lastLetterIdx = "z".charCodeAt(0);
+
+function converter(letter: string): string {
+  return String.fromCharCode(
+    lastLetterIdx - (letter.toLowerCase().charCodeAt(0) - firstLetterIdx),
+  );
+}
 
 export function encode(plainText: string): string {
-  const cipherLetters: Array<string> = [...plainText].map((letter: string) =>
-    cipher.get(letter)
-  );
+  return [...plainText].filter((char: string) => {
+    return char !== " ";
+  }).map(converter).join("");
 }
 
 export function decode(cipherText: string): string {
