@@ -8,22 +8,22 @@ describe("CollatzConjecture", () => {
     assertEquals(steps(1), expected);
   });
 
-  it.ignore("divide if even", () => {
+  it("divide if even", () => {
     const expected = 4;
     assertEquals(steps(16), expected);
   });
 
-  it.ignore("even and odd steps", () => {
+  it("even and odd steps", () => {
     const expected = 9;
     assertEquals(steps(12), expected);
   });
 
-  it.ignore("Large number of even and odd steps", () => {
+  it("Large number of even and odd steps", () => {
     const expected = 152;
     assertEquals(steps(1000000), expected);
   });
 
-  it.ignore("zero is an error", () => {
+  it("zero is an error", () => {
     const expected = "Only positive numbers are allowed";
 
     assertThrows(() => {
@@ -31,7 +31,7 @@ describe("CollatzConjecture", () => {
     }, expected);
   });
 
-  it.ignore("negative value is an error", () => {
+  it("negative value is an error", () => {
     const expected = "Only positive numbers are allowed";
     assertThrows(() => {
       steps(-15);
