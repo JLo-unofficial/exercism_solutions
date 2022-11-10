@@ -39,5 +39,7 @@ export function encode(plainText: string): string {
 }
 
 export function decode(cipherText: string): string {
-  throw new Error("Remove this statement and implement this function");
+  return [...cipherText].filter((char) => {
+    return /[\dA-Za-z]/.test(char);
+  }).map(cipherToPlain).join("");
 }

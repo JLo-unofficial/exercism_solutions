@@ -45,23 +45,23 @@ describe("AtbashCipher", () => {
     });
   });
 
-  describe.ignore("decode", () => {
-    it.ignore("decode exercism", () => {
+  describe("decode", () => {
+    it("decode exercism", () => {
       const plainText = decode("vcvix rhn");
       assertEquals(plainText, "exercism");
     });
 
-    it.ignore("decode a sentence", () => {
+    it("decode a sentence", () => {
       const cipherText = decode("zmlyh gzxov rhlug vmzhg vkkrm thglm v");
       assertEquals(cipherText, "anobstacleisoftenasteppingstone");
     });
 
-    it.ignore("decode numbers", () => {
+    it("decode numbers", () => {
       const plainText = decode("gvhgr mt123 gvhgr mt");
       assertEquals(plainText, "testing123testing");
     });
 
-    it.ignore("decode all the letters", () => {
+    it("decode all the letters", () => {
       const cipherText = decode("gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt");
       assertEquals(cipherText, "thequickbrownfoxjumpsoverthelazydog");
     });
