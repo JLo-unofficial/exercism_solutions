@@ -10,6 +10,15 @@ function plainToCipher(letter: string): string {
   );
 }
 
+function cipherToPlain(letter: string): string {
+  if (/\d/.test(letter)) {
+    return letter;
+  }
+  return String.fromCharCode(
+    firstLetterIdx + (lastLetterIdx - letter.charCodeAt(0)),
+  );
+}
+
 /**
  * @param plainText - Message to encode
  * @returns Message encrypted using atbash cipher
