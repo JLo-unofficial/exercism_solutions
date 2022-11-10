@@ -19,30 +19,34 @@ function cipherToPlain(letter: string): string {
   );
 }
 
+function createWordsOfLengthFive(words: string[], letter: string): string[] {
+  const lastIdx = words.length - 1;
+  const lastWord = words[lastIdx];
+  if (lastWord.length < 5) {
+    words[lastIdx] += letter;
+  } else {
+    words.push(letter);
+  }
+  return words;
+}
+
+const isAlphaNumeric = (char: string): boolean => /[\dA-Za-z]/.test(char);
+
 /**
  * @param plainText - Message to encode
  * @returns Message encrypted using atbash cipher
  */
 export function encode(plainText: string): string {
   return [...plainText]
-    .filter((char: string) => /[\dA-Za-z]/.test(char))
+    .filter(isAlphaNumeric)
     .map(plainToCipher)
-    .reduce((words: string[], letter: string) => {
-      const lastIdx = words.length - 1;
-      const lastWord = words[lastIdx];
-      if (lastWord.length < 5) {
-        words[lastIdx] += letter;
-      } else {
-        words.push(letter);
-      }
-      return words;
-    }, [""])
+    .reduce(createWordsOfLengthFive, [""])
     .join(" ");
 }
 
 export function decode(cipherText: string): string {
   return [...cipherText]
-    .filter((char) => /[\dA-Za-z]/.test(char))
+    .filter(isAlphaNumeric)
     .map(cipherToPlain)
     .join("");
 }
