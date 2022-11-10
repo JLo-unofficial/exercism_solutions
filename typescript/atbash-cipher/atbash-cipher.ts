@@ -24,22 +24,25 @@ function cipherToPlain(letter: string): string {
  * @returns Message encrypted using atbash cipher
  */
 export function encode(plainText: string): string {
-  return [...plainText].filter((char: string) => {
-    return /[\dA-Za-z]/.test(char);
-  }).map(plainToCipher).reduce((words: string[], letter: string) => {
-    const lastIdx = words.length - 1;
-    const lastWord = words[lastIdx];
-    if (lastWord.length < 5) {
-      words[lastIdx] += letter;
-    } else {
-      words.push(letter);
-    }
-    return words;
-  }, [""]).join(" ");
+  return [...plainText]
+    .filter((char: string) => /[\dA-Za-z]/.test(char))
+    .map(plainToCipher)
+    .reduce((words: string[], letter: string) => {
+      const lastIdx = words.length - 1;
+      const lastWord = words[lastIdx];
+      if (lastWord.length < 5) {
+        words[lastIdx] += letter;
+      } else {
+        words.push(letter);
+      }
+      return words;
+    }, [""])
+    .join(" ");
 }
 
 export function decode(cipherText: string): string {
-  return [...cipherText].filter((char) => {
-    return /[\dA-Za-z]/.test(char);
-  }).map(cipherToPlain).join("");
+  return [...cipherText]
+    .filter((char) => /[\dA-Za-z]/.test(char))
+    .map(cipherToPlain)
+    .join("");
 }
