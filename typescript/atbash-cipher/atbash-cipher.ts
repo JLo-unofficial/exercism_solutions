@@ -1,5 +1,8 @@
-const firstLetterIdx = "a".charCodeAt(0);
-const lastLetterIdx = "z".charCodeAt(0);
+/** Index for lowercase 'a' */
+const aCharIdx = "a".charCodeAt(0);
+
+/** Index for lowercase 'z' */
+const zCharIdx = "z".charCodeAt(0);
 
 /**
  * Converts a plaintext character into its corresponding Atbash cipher character
@@ -12,7 +15,7 @@ function plainToCipher(plainChar: string): string {
     return plainChar;
   }
   return String.fromCharCode(
-    lastLetterIdx - (plainChar.toLowerCase().charCodeAt(0) - firstLetterIdx),
+    zCharIdx - (plainChar.toLowerCase().charCodeAt(0) - aCharIdx),
   );
 }
 
@@ -27,7 +30,7 @@ function cipherToPlain(cipherChar: string): string {
     return cipherChar;
   }
   return String.fromCharCode(
-    firstLetterIdx + (lastLetterIdx - cipherChar.charCodeAt(0)),
+    aCharIdx + (zCharIdx - cipherChar.charCodeAt(0)),
   );
 }
 
