@@ -7,10 +7,23 @@ function plainToCipher(letter: string): string {
   );
 }
 
+/**
+ * @param plainText - Message to encode
+ * @returns Message encrypted using atbash cipher
+ */
 export function encode(plainText: string): string {
   return [...plainText].filter((char: string) => {
     return char !== " ";
-  }).map(plainToCipher).join("");
+  }).map(plainToCipher).reduce((words: string[], letter: string) => {
+    const lastIdx = words.length - 1;
+    const lastWord = words[lastIdx];
+    if (lastWord.length < 5) {
+      words[lastIdx] += letter;
+    } else {
+      words.push(letter);
+    }
+    return words;
+  }, [""]).join(" ");
 }
 
 export function decode(cipherText: string): string {
