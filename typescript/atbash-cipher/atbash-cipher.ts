@@ -16,7 +16,7 @@ function plainToCipher(letter: string): string {
  */
 export function encode(plainText: string): string {
   return [...plainText].filter((char: string) => {
-    return char !== " ";
+    return /[\dA-Za-z]/.test(char);
   }).map(plainToCipher).reduce((words: string[], letter: string) => {
     const lastIdx = words.length - 1;
     const lastWord = words[lastIdx];
