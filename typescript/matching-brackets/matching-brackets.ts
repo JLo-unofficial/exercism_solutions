@@ -2,6 +2,8 @@ const isBracket = (char: string): boolean => /[\(\)\{\}\[\]]/.test(char);
 
 const complement: Map<string, string> = new Map<string, string>([
   ["[", "]"],
+  ["{", "}"],
+  ["(", ")"],
 ]);
 
 export function isPaired(input: string): boolean {

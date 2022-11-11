@@ -7,67 +7,67 @@ describe("Matching Brackets", () => {
     assert(isPaired("[]"));
   });
 
-  it.ignore("empty string", () => {
+  it("empty string", () => {
     assert(isPaired(""));
   });
 
-  it.ignore("unpaired brackets", () => {
+  it("unpaired brackets", () => {
     assertFalse(isPaired("[["));
   });
 
-  it.ignore("wrong ordered brackets", () => {
+  it("wrong ordered brackets", () => {
     assertFalse(isPaired("}{"));
   });
 
-  it.ignore("wrong closing bracket", () => {
+  it("wrong closing bracket", () => {
     assertFalse(isPaired("{]"));
   });
 
-  it.ignore("paired with whitespace", () => {
+  it("paired with whitespace", () => {
     assert(isPaired("{ }"));
   });
 
-  it.ignore("partially paired brackets", () => {
+  it("partially paired brackets", () => {
     assertFalse(isPaired("{[])"));
   });
 
-  it.ignore("simple nested brackets", () => {
+  it("simple nested brackets", () => {
     assert(isPaired("{[]}"));
   });
 
-  it.ignore("several paired brackets", () => {
+  it("several paired brackets", () => {
     assert(isPaired("{}[]"));
   });
 
-  it.ignore("paired and nested brackets", () => {
+  it("paired and nested brackets", () => {
     assert(isPaired("([{}({}[])])"));
   });
 
-  it.ignore("unopened closing brackets", () => {
+  it("unopened closing brackets", () => {
     assertFalse(isPaired("{[)][]}"));
   });
 
-  it.ignore("unpaired and nested brackets", () => {
+  it("unpaired and nested brackets", () => {
     assertFalse(isPaired("([{])"));
   });
 
-  it.ignore("paired and wrong nested brackets", () => {
+  it("paired and wrong nested brackets", () => {
     assertFalse(isPaired("[({]})"));
   });
 
-  it.ignore("paired and incomplete brackets", () => {
+  it("paired and incomplete brackets", () => {
     assertFalse(isPaired("{}["));
   });
 
-  it.ignore("too many closing brackets", () => {
+  it("too many closing brackets", () => {
     assertFalse(isPaired("[]]"));
   });
 
-  it.ignore("math expression", () => {
+  it("math expression", () => {
     assert(isPaired("(((185 + 223.85) * 15) - 543)/2"));
   });
 
-  it.ignore("complex latex expression", () => {
+  it("complex latex expression", () => {
     assert(
       isPaired(
         "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)",
