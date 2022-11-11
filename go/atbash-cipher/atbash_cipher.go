@@ -1,32 +1,26 @@
 package atbash
 
-import "strings"
-
-var (
-	A    byte = "A"[0]
-	Z    byte = "Z"[0]
-	a    byte = "a"[0]
-	z    byte = "z"[0]
-	zero byte = "0"[0]
-	nine byte = "9"[0]
+import (
+	"strings"
+	"unicode"
 )
 
 func Atbash(s string) string {
 	var encodedMessage strings.Builder
 	var cipherText strings.Builder
-	for i := 0; i < len(s); i++ {
+	for _, char := range s {
 		// Digits can be directly written to cipherText
-		if s[i] >= zero && s[i] <= nine {
-			cipherText.WriteByte(s[i])
+		if unicode.IsDigit(char) {
+			cipherText.WriteRune(char)
 		}
 
 		// Convert uppercase letters to lowercase
-		if s[i] >= A && s[i] <= Z {
-			cipherText.WriteByte(plainToCipher(s[i] - (A - a)))
+		if unicode.IsUpper(char) {
+			cipherText.WriteRune(plainToCipher(unicode.ToLower(char)))
 		}
 
-		if s[i] >= a && s[i] <= z {
-			cipherText.WriteByte(plainToCipher(s[i]))
+		if unicode.IsLower(char) {
+			cipherText.WriteRune(plainToCipher(char))
 		}
 
 		// cipherText should only hold strings up to len 5
@@ -45,6 +39,6 @@ func Atbash(s string) string {
 }
 
 // Helper function to encode plainText character to its corresponding cipherText
-func plainToCipher(char byte) byte {
-	return z - (char - a)
+func plainToCipher(char rune) rune {
+	return 'z' - (char - 'a')
 }
