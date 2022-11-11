@@ -18,7 +18,6 @@ export function triplets({ minFactor, maxFactor, sum }: Options): Triplet[] {
         result.push(new Triplet(a, b, c));
       }
     }
-    2;
   }
   return result;
 }
