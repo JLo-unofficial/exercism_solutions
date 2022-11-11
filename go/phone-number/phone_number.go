@@ -14,26 +14,28 @@ var (
 
 func Number(phoneNumber string) (string, error) {
 	var numbersOnly strings.Builder
-
 	for i := 0; i < len(phoneNumber); i++ {
 		if phoneNumber[i] >= zero && phoneNumber[i] <= nine {
 			numbersOnly.WriteByte(phoneNumber[i])
 		}
 	}
-
 	cleanedNumber := numbersOnly.String()
 
+	// Remove leading country code if present
 	if len(cleanedNumber) == 11 && strings.HasPrefix(cleanedNumber, "1") {
 		cleanedNumber = cleanedNumber[1:]
 	}
 
+	// Only numbers of length 10 are valid
 	if len(cleanedNumber) != 10 {
 		return "", errors.New("invalid number of digits")
 	}
 
+	// Invalidate numbers with a 0 or 1 in area code
 	if cleanedNumber[0] == zero || cleanedNumber[0] == one {
 		return "", errors.New("area code cannot start with zero or one")
 	}
+	// Invalidate numbers with a 0 or 1 in exchange code
 	if cleanedNumber[3] == zero || cleanedNumber[3] == one {
 		return "", errors.New("exchange code cannot start with zero or one")
 	}
