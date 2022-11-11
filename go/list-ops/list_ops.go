@@ -1,24 +1,12 @@
 package listops
 
 type (
-	UnaryFunc  func(int) int
 	BinaryFunc func(int, int) int
 	BoolFunc   func(int) bool
+	UnaryFunc  func(int) int
 )
 
 type IntList []int
-
-func (list IntList) Reverse() IntList {
-	result := make([]int, len(list))
-	for i := 0; i < len(list); i++ {
-		result[i] = list[len(list)-1-i]
-	}
-	return result
-}
-
-func (list IntList) Length() int {
-	return len(list)
-}
 
 func (list IntList) Append(listB []int) IntList {
 	result := make([]int, len(list)+len(listB))
@@ -31,10 +19,30 @@ func (list IntList) Append(listB []int) IntList {
 	return result
 }
 
-func (list IntList) Map(fn UnaryFunc) IntList {
-	result := make([]int, len(list))
-	for i := 0; i < len(result); i++ {
-		result[i] = fn(list[i])
+func (list IntList) Concat(lists []IntList) IntList {
+	resultLength := len(list)
+	for i := 0; i < len(lists); i++ {
+		resultLength += len(lists[i])
+	}
+	result := make([]int, resultLength)
+	copy(result, list)
+
+	nextIdx := len(list)
+	for i := 0; i < len(lists); i++ {
+		for j := 0; j < len(lists[i]); j++ {
+			result[nextIdx+j] = lists[i][j]
+		}
+		nextIdx += len(lists[i])
+	}
+	return result
+}
+
+func (list IntList) Filter(fn BoolFunc) IntList {
+	result := make([]int, 0, len(list))
+	for i := 0; i < len(list); i++ {
+		if fn(list[i]) {
+			result = append(result, list[i])
+		}
 	}
 	return result
 }
@@ -53,30 +61,22 @@ func (list IntList) Foldr(fn BinaryFunc, initial int) int {
 	return initial
 }
 
-func (list IntList) Filter(fn BoolFunc) IntList {
-	result := make([]int, 0, len(list))
-	for i := 0; i < len(list); i++ {
-		if fn(list[i]) {
-			result = append(result, list[i])
-		}
+func (list IntList) Length() int {
+	return len(list)
+}
+
+func (list IntList) Map(fn UnaryFunc) IntList {
+	result := make([]int, len(list))
+	for i := 0; i < len(result); i++ {
+		result[i] = fn(list[i])
 	}
 	return result
 }
 
-func (list IntList) Concat(lists []IntList) IntList {
-	resultLength := len(list)
-	for i := 0; i < len(lists); i++ {
-		resultLength += len(lists[i])
-	}
-	result := make([]int, resultLength)
-	copy(result, list)
-
-	nextIdx := len(list)
-	for i := 0; i < len(lists); i++ {
-		for j := 0; j < len(lists[i]); j++ {
-			result[nextIdx+j] = lists[i][j]
-		}
-		nextIdx += len(lists[i])
+func (list IntList) Reverse() IntList {
+	result := make([]int, len(list))
+	for i := 0; i < len(list); i++ {
+		result[i] = list[len(list)-1-i]
 	}
 	return result
 }
