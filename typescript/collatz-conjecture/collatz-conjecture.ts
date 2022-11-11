@@ -1,3 +1,5 @@
+import {count} from "./bindings/bindings.ts"
+
 export function steps(count: number): number {
   if (count < 1) {
     throw "Only positive numbers are allowed";
@@ -12,4 +14,12 @@ export function steps(count: number): number {
     counter++;
   }
   return counter;
+}
+
+
+export function stepsFfi(n: number): number {
+  if (n < 1) {
+    throw "Only positive numbers are allowed";
+  }
+  return count(n);
 }

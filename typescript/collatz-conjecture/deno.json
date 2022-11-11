@@ -3,5 +3,9 @@
     "allowJs": false,
     "strict": true
   },
-  "importMap": "import_map.json"
+  "importMap": "import_map.json",
+  "tasks": {
+    "test": "deno test --allow-write --allow-read --allow-env --unstable --allow-ffi",
+    "bench": "deno bench --allow-write --allow-read --allow-env --unstable --allow-ffi"
+  }
 }
