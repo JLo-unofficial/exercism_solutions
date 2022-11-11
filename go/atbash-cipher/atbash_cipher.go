@@ -10,16 +10,15 @@ func Atbash(s string) string {
 	var cipherText strings.Builder
 	for _, char := range s {
 		// Digits can be directly written to cipherText
-		if unicode.IsDigit(char) {
+		switch {
+
+		case unicode.IsDigit(char):
 			cipherText.WriteRune(char)
-		}
 
-		// Convert uppercase letters to lowercase
-		if unicode.IsUpper(char) {
+		case unicode.IsUpper(char):
 			cipherText.WriteRune(plainToCipher(unicode.ToLower(char)))
-		}
 
-		if unicode.IsLower(char) {
+		case unicode.IsLower(char):
 			cipherText.WriteRune(plainToCipher(char))
 		}
 
