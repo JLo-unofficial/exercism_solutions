@@ -9,9 +9,9 @@ func Atbash(s string) string {
 	var encodedMessage strings.Builder
 	var cipherText strings.Builder
 	for _, char := range s {
-		// Digits can be directly written to cipherText
 		switch {
 
+		// Digits can be directly written to cipherText
 		case unicode.IsDigit(char):
 			cipherText.WriteRune(char)
 
