@@ -4,17 +4,21 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"unicode"
+)
+
+var (
+	zero byte = "0"[0]
+	one  byte = "1"[0]
+	nine byte = "9"[0]
 )
 
 func Number(phoneNumber string) (string, error) {
 	var numbersOnly strings.Builder
 
-	for _, digit := range phoneNumber {
-		if !unicode.IsDigit(digit) {
-			continue
+	for i := 0; i < len(phoneNumber); i++ {
+		if phoneNumber[i] >= zero && phoneNumber[i] <= nine {
+			numbersOnly.WriteByte(phoneNumber[i])
 		}
-		numbersOnly.WriteRune(digit)
 	}
 
 	cleanedNumber := numbersOnly.String()
@@ -27,10 +31,10 @@ func Number(phoneNumber string) (string, error) {
 		return "", errors.New("invalid number of digits")
 	}
 
-	if strings.HasPrefix(cleanedNumber, "0") || strings.HasPrefix(phoneNumber, "1") {
+	if cleanedNumber[0] == zero || cleanedNumber[0] == one {
 		return "", errors.New("area code cannot start with zero or one")
 	}
-	if strings.HasPrefix(cleanedNumber[3:], "0") || strings.HasPrefix(cleanedNumber[3:], "1") {
+	if cleanedNumber[3] == zero || cleanedNumber[3] == one {
 		return "", errors.New("exchange code cannot start with zero or one")
 	}
 
