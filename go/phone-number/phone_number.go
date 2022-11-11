@@ -3,28 +3,21 @@ package phonenumber
 import (
 	"errors"
 	"fmt"
-	"regexp"
 	"strings"
+	"unicode"
 )
 
-func hasValidAreaCode(phoneNumber string) bool {
-	return !strings.HasPrefix(phoneNumber, "0") && !strings.HasPrefix(phoneNumber, "1")
-}
-
-func hasValidExchangeCode(phoneNumber string) bool {
-	validExchangeCodePattern, err := regexp.Compile(`^\d{3}[^01]`)
-	if err != nil {
-		return false
-	}
-	return validExchangeCodePattern.MatchString(phoneNumber)
-}
-
 func Number(phoneNumber string) (string, error) {
-	numberPattern, err := regexp.Compile(`[^0-9]`)
-	if err != nil {
-		return "", err
+	var numbersOnly strings.Builder
+
+	for _, digit := range phoneNumber {
+		if !unicode.IsDigit(digit) {
+			continue
+		}
+		numbersOnly.WriteRune(digit)
 	}
-	cleanedNumber := numberPattern.ReplaceAllString(phoneNumber, "")
+
+	cleanedNumber := numbersOnly.String()
 
 	if len(cleanedNumber) == 11 && strings.HasPrefix(cleanedNumber, "1") {
 		cleanedNumber = cleanedNumber[1:]
@@ -34,10 +27,10 @@ func Number(phoneNumber string) (string, error) {
 		return "", errors.New("invalid number of digits")
 	}
 
-	if !hasValidAreaCode(cleanedNumber) {
+	if strings.HasPrefix(cleanedNumber, "0") || strings.HasPrefix(phoneNumber, "1") {
 		return "", errors.New("area code cannot start with zero or one")
 	}
-	if !hasValidExchangeCode(cleanedNumber) {
+	if strings.HasPrefix(cleanedNumber[3:], "0") || strings.HasPrefix(cleanedNumber[3:], "1") {
 		return "", errors.New("exchange code cannot start with zero or one")
 	}
 
