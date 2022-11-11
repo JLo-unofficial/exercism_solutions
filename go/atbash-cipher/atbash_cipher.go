@@ -12,19 +12,27 @@ var (
 )
 
 func Atbash(s string) string {
-	var result strings.Builder
+	var message strings.Builder
+	var cipherText strings.Builder
 	for i := 0; i < len(s); i++ {
 		if s[i] >= zero && s[i] <= nine {
-			result.WriteByte(s[i])
+			cipherText.WriteByte(s[i])
 		}
 		if s[i] >= A && s[i] <= Z {
-			result.WriteByte(plainToCipher(s[i] - (A - a)))
+			cipherText.WriteByte(plainToCipher(s[i] - (A - a)))
 		}
 		if s[i] >= a && s[i] <= z {
-			result.WriteByte(plainToCipher(s[i]))
+			cipherText.WriteByte(plainToCipher(s[i]))
+		}
+
+		if cipherText.Len() == 5 {
+			message.WriteString(cipherText.String())
+			message.WriteString(" ")
+			cipherText.Reset()
 		}
 	}
-	return result.String()
+	message.WriteString(cipherText.String())
+	return strings.Trim(message.String(), " ")
 }
 
 func plainToCipher(char byte) byte {
