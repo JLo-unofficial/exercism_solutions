@@ -8,10 +8,11 @@ import (
 func Atbash(s string) string {
 	var cipherText strings.Builder
 	for _, char := range s {
-		// cipherText should only hold strings up to len 5
+		// cipherText should have words of length 5 separated by spaces
 		if cipherText.Len()%6 == 5 {
 			cipherText.WriteRune(' ')
 		}
+
 		switch {
 
 		// Digits can be directly written to cipherText
@@ -24,7 +25,6 @@ func Atbash(s string) string {
 
 	}
 
-	// Trim trailing space from line 35
 	return strings.Trim(cipherText.String(), " ")
 }
 
