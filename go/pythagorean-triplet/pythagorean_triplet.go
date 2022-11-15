@@ -39,33 +39,18 @@ func Sum(sum int) []Triplet {
 	return result
 }
 
-func generateCoprimePairs() (nextPair CoprimePair) {
+func generateCoprimePairs() chan CoprimePair {
+	nextPair := make(chan CoprimePair)
 	coprimePairs := []CoprimePair{{m: 2, n: 1}, {m: 3, n: 1}}
-	branchFunctions := []BranchFunction{
-		func(pair CoprimePair) CoprimePair {
-			return CoprimePair{
-				m: pair.m - pair.n,
-				n: pair.m,
-			}
-		},
-		func(pair CoprimePair) CoprimePair {
-			return CoprimePair{
-				m: pair.m + pair.n,
-				n: pair.m,
-			}
-		},
-		func(pair CoprimePair) CoprimePair {
-			return CoprimePair{
-				m: pair.m + 2*pair.n,
-				n: pair.n,
-			}
-		},
-	}
 
-	for {
-		nextPair, coprimePairs = coprimePairs[0], coprimePairs[1:]
-		for _, nextFunc := range branchFunctions {
-			coprimePairs = append(coprimePairs, nextFunc(nextPair))
+	go func() {
+		for {
+			coprimePairs = append(coprimePairs, CoprimePair{m: 2*coprimePairs[0].m - coprimePairs[0].n, n: coprimePairs[0].m})
+			coprimePairs = append(coprimePairs, CoprimePair{m: 2*coprimePairs[0].m + coprimePairs[0].n, n: coprimePairs[0].m})
+			coprimePairs = append(coprimePairs, CoprimePair{m: coprimePairs[0].m + 2*coprimePairs[0].n, n: coprimePairs[0].n})
+			nextPair <- coprimePairs[0]
+			coprimePairs = coprimePairs[1:]
 		}
-	}
+	}()
+	return nextPair
 }

@@ -60,6 +60,32 @@ func TestSum(t *testing.T) {
 	}
 }
 
+var coprimeTests = []CoprimePair{
+	{m: 2, n: 1},
+	{m: 3, n: 1},
+	{m: 3, n: 2},
+	{m: 5, n: 2},
+	{m: 4, n: 1},
+	{m: 5, n: 3},
+	{m: 7, n: 3},
+	{m: 5, n: 1},
+}
+
+func TestCoprimeGenerator(t *testing.T) {
+	numTests := len(coprimeTests)
+	i := 0
+	for actual := range generateCoprimePairs() {
+		if i >= numTests {
+			break
+		}
+		expected := coprimeTests[i]
+		if actual.m != expected.m && actual.n != expected.n {
+			t.Fatalf("Generated coprime %v does not match expected coprime %v", actual, expected)
+		}
+		i += 1
+	}
+}
+
 func BenchmarkRange(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Range(1, 100)
