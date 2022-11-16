@@ -25,15 +25,28 @@ func Range(min, max int) (triplets []Triplet) {
 }
 
 func Sum(sum int) []Triplet {
-	var c int
+	var a, b, c, n, k int
 	result := make([]Triplet, 0)
-	for a := 1; a <= sum/3; a++ {
-		for b := a + 1; b < (sum-a)/2; b += (a % 2) + 1 {
-			c = sum - (a + b)
-			if a*a+b*b == c*c {
-				result = append(result, Triplet{a: a, b: b, c: c})
-				break
-			}
+	for pair := range generateCoprimePairs() {
+		a = pair.m*pair.m - pair.n*pair.n
+		b = 2 * pair.m * pair.n
+		c = pair.m*pair.m + pair.n*pair.n
+		if a % 2 == 0 {
+			a, b = b, a
+		}
+		if pair.m%2+pair.n%2 == 2 {
+			a /= 2
+			b /= 2
+			c /= 2
+		}
+
+		n = a + b + c
+		if sum%n == 0 {
+			k = sum / n
+			result = append(result, Triplet{a: k * a, b: k * b, c: k * c})
+		}
+		if pair.n > sum {
+			break
 		}
 	}
 	return result
@@ -42,12 +55,32 @@ func Sum(sum int) []Triplet {
 func generateCoprimePairs() chan CoprimePair {
 	nextPair := make(chan CoprimePair)
 	coprimePairs := []CoprimePair{{m: 2, n: 1}, {m: 3, n: 1}}
+	branchFunctions := []BranchFunction{
+		func(pair CoprimePair) CoprimePair {
+			return CoprimePair{
+				m: 2*pair.m - pair.n,
+				n: pair.m,
+			}
+		},
+		func(pair CoprimePair) CoprimePair {
+			return CoprimePair{
+				m: 2*pair.m + pair.n,
+				n: pair.m,
+			}
+		},
+		func(pair CoprimePair) CoprimePair {
+			return CoprimePair{
+				m: pair.m + 2*pair.n,
+				n: pair.n,
+			}
+		},
+	}
 
 	go func() {
 		for {
-			coprimePairs = append(coprimePairs, CoprimePair{m: 2*coprimePairs[0].m - coprimePairs[0].n, n: coprimePairs[0].m})
-			coprimePairs = append(coprimePairs, CoprimePair{m: 2*coprimePairs[0].m + coprimePairs[0].n, n: coprimePairs[0].m})
-			coprimePairs = append(coprimePairs, CoprimePair{m: coprimePairs[0].m + 2*coprimePairs[0].n, n: coprimePairs[0].n})
+			for _, branchFunc := range branchFunctions {
+				coprimePairs = append(coprimePairs, branchFunc(coprimePairs[0]))
+			}
 			nextPair <- coprimePairs[0]
 			coprimePairs = coprimePairs[1:]
 		}
