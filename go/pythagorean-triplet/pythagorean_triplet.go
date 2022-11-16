@@ -13,17 +13,35 @@ type CoprimePair struct {
 }
 
 func Range(min, max int) (triplets []Triplet) {
+	var a, b, c, square int
 	triplets = make([]Triplet, 0)
-	for a := min; a < max-2; a++ {
-		for b := a + 1; b < max; b++ {
-			for c := b + 1; c <= max; c++ {
-				if a*a+b*b == c*c {
-					triplets = append(triplets, Triplet{a: a, b: b, c: c})
-				}
+	for r := 2; r < max; r += 2 {
+		square = (r * r) / 2
+		for s, t := range generateFactorPairs(square) {
+			a = r + s
+			b = r + t
+			c = r + s + t
+			if a > min && c <= max {
+				triplets = append(triplets, Triplet{a: a, b: b, c: c})
 			}
+
 		}
 	}
 	return triplets
+}
+
+func generateFactorPairs(n int) map[int]int {
+	result := map[int]int{}
+	for i := 1; i < n; i++ {
+		if n%i == 0 {
+			quotient := n / i
+			if quotient < i {
+				break
+			}
+			result[i] = n / i
+		}
+	}
+	return result
 }
 
 func Sum(sum int) []Triplet {
