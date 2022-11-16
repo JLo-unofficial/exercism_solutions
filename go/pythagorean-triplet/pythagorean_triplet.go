@@ -28,16 +28,14 @@ func Sum(sum int) []Triplet {
 	var a, b, c, n, k int
 	result := make([]Triplet, 0)
 	for pair := range generateCoprimePairs() {
-		a = pair.m*pair.m - pair.n*pair.n
-		b = 2 * pair.m * pair.n
-		c = pair.m*pair.m + pair.n*pair.n
-		if a % 2 == 0 {
-			a, b = b, a
+		if pair.m%2+pair.n%2 != 2 {
+			continue
 		}
-		if pair.m%2+pair.n%2 == 2 {
-			a /= 2
-			b /= 2
-			c /= 2
+		a = pair.m * pair.n
+		b = (pair.m*pair.m - pair.n*pair.n) / 2
+		c = (pair.m*pair.m + pair.n*pair.n) / 2
+		if a%2 == 0 {
+			a, b = b, a
 		}
 
 		n = a + b + c
