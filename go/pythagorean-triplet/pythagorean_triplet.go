@@ -1,7 +1,5 @@
 package pythagorean
 
-import "sort"
-
 type Triplet struct {
 	a, b, c int
 }
@@ -45,40 +43,12 @@ func generateFactorPairs(n int) map[int]int {
 }
 
 func Sum(sum int) []Triplet {
-	var a, b, c, n, k int
-	triplets := map[int]Triplet{}
-	count := 0
-	for pair := range generateCoprimePairs() {
-		if count > 39 {
-			break
-		}
-		if pair.m%2+pair.n%2 != 2 {
+	result := make([]Triplet, 0)
+	for _, triplet := range Range(1, sum) {
+		if triplet.a + triplet.b + triplet.c != sum {
 			continue
 		}
-		a = pair.m * pair.n
-		b = (pair.m*pair.m - pair.n*pair.n) / 2
-		c = (pair.m*pair.m + pair.n*pair.n) / 2
-		if a > b {
-			a, b = b, a
-		}
-
-		n = a + b + c
-		if sum%n == 0 {
-			k = sum / n
-			triplets[k*a] = Triplet{a: k * a, b: k * b, c: k * c}
-		}
-		count++
-	}
-	keys := make([]int, len(triplets))
-	result := make([]Triplet, len(triplets))
-	keyIndex := 0
-	for k := range triplets {
-		keys[keyIndex] = k
-		keyIndex++
-	}
-	sort.Ints(keys)
-	for idx, k := range keys {
-		result[idx] = triplets[k]
+		result = append(result, triplet)
 	}
 	return result
 }
